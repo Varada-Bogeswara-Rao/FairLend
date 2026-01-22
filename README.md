@@ -69,7 +69,7 @@ This separation keeps the system simple, secure, and hackathon-safe.
 ### 2. FairScore Attestation Service (Offchain)
 **Purpose**
 * Fetch FairScore from FairScale
-* Convert score → tier
+* Convert score → tier (normalized to 0-100 scale)
 * Sign attestation to prevent tampering
 
 **Flow**
