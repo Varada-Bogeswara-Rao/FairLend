@@ -1,5 +1,4 @@
-"use strict";
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState, useEffect } from 'react';
 import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
 import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
 import { PhantomWalletAdapter, SolflareWalletAdapter } from '@solana/wallet-adapter-wallets';
@@ -12,11 +11,18 @@ import { clusterApiUrl } from '@solana/web3.js';
 import '@solana/wallet-adapter-react-ui/styles.css';
 
 export const WalletConnect: FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
     const network = WalletAdapterNetwork.Devnet;
 
     // You can also provide a custom RPC endpoint.
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    // Explicitly using the public endpoint to avoid auto-detect issues
+    const endpoint = useMemo(() => "https://api.devnet.solana.com", []);
 
     const wallets = useMemo(
         () => [
@@ -26,12 +32,22 @@ export const WalletConnect: FC<{ children: React.ReactNode }> = ({ children }) =
         []
     );
 
+    if (!mounted) {
+        return (
+            <div className="min-h-screen bg-[#0f172a] flex items-center justify-center text-slate-500">
+                <div className="animate-pulse">Loading FairLend...</div>
+            </div>
+        );
+    }
+
     return (
         <ConnectionProvider endpoint={endpoint}>
             <WalletProvider wallets={wallets} autoConnect>
                 <WalletModalProvider>
-                    <div className="flex justify-between items-center p-4 bg-gray-900 text-white">
-                        <div className="text-xl font-bold">FairLend</div>
+                    <div className="glass-panel sticky top-0 z-50 border-b border-white/5 px-6 py-4 flex justify-between items-center mb-0">
+                        <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">
+                            FairLend
+                        </div>
                         <WalletMultiButton />
                     </div>
                     {children}

@@ -37,39 +37,44 @@ function Dashboard() {
   }, [publicKey]);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white font-sans">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen text-white font-sans selection:bg-blue-500/30">
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-5xl mx-auto">
           {/* Header */}
-          <div className="mb-12 text-center">
-            <h1 className="text-5xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+          <div className="mb-16 text-center">
+            <div className="inline-block mb-3 px-4 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-bold uppercase tracking-widest">
+              Solana RWA Lending Prototype
+            </div>
+            <h1 className="text-7xl font-black mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 drop-shadow-sm">
               FairLend
             </h1>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Reputation-based lending on Solana. <br />
-              Leverage your <span className="text-white font-bold">FairScore</span> to unlock higher borrow limits.
+            <p className="text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+              Your reputation is your collateral. <br />
+              Leverage your <span className="text-white font-bold">FairScore</span> to unlock premium tiers and higher borrow limits.
             </p>
           </div>
 
           {!publicKey ? (
-            <div className="text-center py-20 bg-gray-900 rounded-2xl border border-dashed border-gray-700">
-              <p className="text-2xl text-gray-500 mb-6">Connect your wallet to see your Trust Tier</p>
-              {/* Wallet button is in Navbar, pointing user there */}
-              <div className="animate-bounce text-3xl">☝️</div>
+            <div className="text-center py-24 glass-panel rounded-3xl border-dashed border-white/10 flex flex-col items-center justify-center">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mb-6">
+                <span className="text-3xl">👛</span>
+              </div>
+              <p className="text-2xl text-slate-300 mb-2 font-light">Connect your wallet to begin</p>
+              <p className="text-sm text-slate-500">We'll fetch your FairScore reputation automatically</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
               {/* Left Column: Reputation */}
               <div className="space-y-6">
                 <section>
-                  <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <span>🛡️</span> Your Reputation
+                  <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 ml-1">
+                    Reputation Status
                   </h2>
 
                   {error && (
-                    <div className="bg-red-900/50 border border-red-700 text-red-200 p-4 rounded-lg mb-4 text-sm">
+                    <div className="bg-red-500/10 border border-red-500/20 text-red-200 p-4 rounded-xl mb-4 text-sm backdrop-blur-md">
                       Error: {error}
-                      <button onClick={loadAttestation} className="ml-4 underline">Retry</button>
+                      <button onClick={loadAttestation} className="ml-4 underline hover:text-white">Retry</button>
                     </div>
                   )}
 
@@ -79,12 +84,21 @@ function Dashboard() {
                     loading={loading}
                   />
 
-                  <div className="mt-6 p-4 bg-blue-900/20 border border-blue-800 rounded-lg text-sm text-blue-200">
-                    <p className="font-semibold mb-1">How it works:</p>
-                    <ul className="list-disc pl-5 space-y-1 opacity-80">
-                      <li>Your FairScore is fetched from FairScale.</li>
-                      <li>Higher scores unlock Gold/Silver tiers.</li>
-                      <li>Tiers determine your Max LTV on Kamino.</li>
+                  <div className="mt-6 p-6 glass-panel rounded-2xl">
+                    <p className="font-bold text-blue-300 mb-3 text-sm uppercase tracking-wide">System Rules</p>
+                    <ul className="space-y-3 text-sm text-slate-300">
+                      <li className="flex items-start gap-3">
+                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                        <span>FairScore is fetched securely from FairScale API.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                        <span>Attestations are signed offchain and verified onchain.</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <div className="mt-1 w-1.5 h-1.5 rounded-full bg-blue-400"></div>
+                        <span>Gold Tier (Score 75+) unlocks 85% LTV.</span>
+                      </li>
                     </ul>
                   </div>
                 </section>
@@ -93,8 +107,8 @@ function Dashboard() {
               {/* Right Column: Lending */}
               <div className="space-y-6">
                 <section>
-                  <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <span>💰</span> Borrow
+                  <h2 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 ml-1">
+                    Liquidity Market
                   </h2>
                   <BorrowForm
                     attestation={attestation}
@@ -108,8 +122,8 @@ function Dashboard() {
       </div>
 
       {/* Footer */}
-      <footer className="text-center py-8 text-gray-600 text-sm mt-12 bg-black/20">
-        FairLend Prototype • Powered by Solana, Anchor & FairScale
+      <footer className="text-center py-12 text-slate-600 text-sm mt-12 bg-black/20 backdrop-blur-lg border-t border-white/5">
+        <p>FairLend Prototype • Built with Anchor, Next.js & FairScale</p>
       </footer>
     </div>
   );

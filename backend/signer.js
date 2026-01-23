@@ -19,16 +19,16 @@ try {
     process.exit(1);
 }
 
-function signAttestation(walletAddress, score, tier) {
+function signAttestation(walletAddress, score, tier, timestamp) {
     try {
         const walletPubkey = new PublicKey(walletAddress);
-        const timestamp = Math.floor(Date.now() / 1000);
+        // Timestamp is now passed in (fetched from chain)
 
         // Message format must match onchain logic EXACTLY:
-        // [wallet (32) | score (8) | tier (1) | timestamp (8)]
+        // [wallet (32) | score (4) | tier (1) | timestamp (8)]
         // LE = Little Endian
 
-        const buffer = Buffer.alloc(32 + 8 + 1 + 8);
+        const buffer = Buffer.alloc(32 + 4 + 1 + 8);
 
         let offset = 0;
 
@@ -36,10 +36,9 @@ function signAttestation(walletAddress, score, tier) {
         buffer.set(walletPubkey.toBuffer(), offset);
         offset += 32;
 
-        // 2. Score (8 bytes, u64 LE)
-        // Javascript numbers are doubles. Use BigInt for u64 safety.
-        buffer.writeBigUInt64LE(BigInt(score), offset);
-        offset += 8;
+        // 2. Score (4 bytes, u32 LE)
+        buffer.writeUInt32LE(score, offset);
+        offset += 4;
 
         // 3. Tier (1 byte, u8)
         buffer.writeUInt8(tier, offset);
