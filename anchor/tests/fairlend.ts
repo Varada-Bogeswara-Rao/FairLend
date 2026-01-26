@@ -8,7 +8,7 @@ describe("fairlend", () => {
     const provider = anchor.AnchorProvider.env();
     anchor.setProvider(provider);
 
-    const program = anchor.workspace.Fairlend as Program<Fairlend>;
+    const program: any = anchor.workspace.Fairlend;
 
     it("Is initialized and validates borrow!", async () => {
         const timestamp = Math.floor(Date.now() / 1000);

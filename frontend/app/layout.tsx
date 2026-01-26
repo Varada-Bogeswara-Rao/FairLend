@@ -1,24 +1,23 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { WalletContextProvider } from "./components/WalletContextProvider";
-
-const inter = Inter({ subsets: ["latin"] });
+import type { Metadata } from 'next';
+import './globals.css';
+import WalletContextProvider from '@/components/providers/WalletProvider';
+import Navbar from '@/components/layout/Navbar';
 
 export const metadata: Metadata = {
-  title: "FairLend - Reputation-Based Lending",
-  description: "Borrow on Solana based on your FairScore reputation",
+  title: 'FairLend - Trust-Based Lending on Solana',
+  description: 'FairLend uses on-chain reputation (FairScore) to unlock safer, smarter borrowing on Solana.',
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="en" className="dark">
+      <body>
         <WalletContextProvider>
+          <Navbar />
           {children}
         </WalletContextProvider>
       </body>

@@ -4,20 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
-    "@solana/web3.js": "^1.98.4",
-    "axios": "^1.13.2",
+    "@solana/web3.js": "^1.92.3",
+    "@solendprotocol/solend-sdk": "^0.14.26",
+    "axios": "^1.13.3",
     "bs58": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "express-rate-limit": "^8.2.1",
     "tweetnacl": "^1.0.3"
+  },
+  "overrides": {
+    "@solana/web3.js": "1.92.3"
   }
 }
