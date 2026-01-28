@@ -96,4 +96,4 @@ The frontend connects to your local backend to process user requests.
 
 ## 📜 Architecture
 
-See [architecture.md](./architecture.md) for the high-level system diagram and data flow.
+See [architecture.md](./architecture.md) for the high-level system diagram and data flow..
