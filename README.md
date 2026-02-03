@@ -2,7 +2,7 @@
 
 **FairLend** is a reputation-based lending protocol on Solana that integrates **FairScale** to create a "Risk Guardrail" for DeFi. By dynamically adjusting a user's borrowing power based on their on-chain reputation score, FairLend enables trusted users to access higher capital efficiency while actively mitigating protocol risk.
 
-## 🎯 Mission & Core Integrations
+## 🎯 Mission & Core Integrations.
 
 ### 1. FairScale (The Reputation Layer)
 FairLend uses **FairScale** as its core trust engine.
