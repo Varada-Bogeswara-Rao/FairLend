@@ -15,7 +15,7 @@ FairLend uses **FairScale** as its core trust engine.
 
 ### 2. Solend (The DeFi Layer)
 FairLend builds on top of the **Solend** protocol for actual lending and borrowing markets.
-- **Transaction Building**: The backend acts as a secure transaction builder. It uses the **Solend SDK** to construct valid Solana instructions (deposits, borrows) only *after* the risk engine has verified the user's tier.
+- **Transaction Building**: The backend acts as a secure transaction builder. It uses the **Solend SDK** to construct valid Solana instructions (deposits, borrows) only *after* the risk engine has verified the user's tier...
 - **Simulation**: In environments where mainnet-forks or specific pools aren't available, the system can fallback to simulated transaction building for demonstration purposes.
 
 ## 🏗️ Project Structure
