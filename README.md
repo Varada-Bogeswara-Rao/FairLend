@@ -7,7 +7,7 @@
 ### 1. FairScale (The Reputation Layer)
 FairLend uses **FairScale** as its core trust engine.
 - **Risk Guardrails**: Instead of a "one size fits all" approach, FairLend intercepts every borrow request at the backend.
-- **FairScore Integration**: The backend queries the user's latest FairScore from the FairScale API.
+- **FairScore Integration**: The backend queries the user's latest FairScore from the FairScale API..
 - **Trust Tiers**: Users are categorized into three distinct tiers:
     - **🥉 Bronze**: Basic access (Max 50% LTV).
     - **🥈 Silver**: Standard access (Max 60% LTV).
