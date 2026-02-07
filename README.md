@@ -1,49 +1,54 @@
+
 # FairLend: Reputation-Based Risk Guardrails for DeFi
 
-**FairLend** is a reputation-based lending protocol on Solana that integrates **FairScale** to create a "Risk Guardrail" for DeFi. By dynamically adjusting a user's borrowing power based on their on-chain reputation score, FairLend enables trusted users to access higher capital efficiency while actively mitigating protocol risk.
+**FairLend** is a next-generation lending protocol on Solana that integrates **FairScale** to create a "Risk Guardrail" for DeFi. By dynamically adjusting a user's borrowing power based on their on-chain reputation score, FairLend enables trusted users to access higher capital efficiency while actively mitigating protocol risk.
 
-## 🎯 Mission & Core Integrations.
+## 🚀 Mission & Vision
 
-### 1. FairScale (The Reputation Layer)
-FairLend uses **FairScale** as its core trust engine.
-- **Risk Guardrails**: Instead of a "one size fits all" approach, FairLend intercepts every borrow request at the backend.
-- **FairScore Integration**: The backend queries the user's latest FairScore from the FairScale API..
-- **Trust Tiers**: Users are categorized into three distinct tiers:
-    - **🥉 Bronze**: Basic access (Max 50% LTV).
-    - **🥈 Silver**: Standard access (Max 60% LTV).
-    - **🥇 Gold**: Premium access (Max 75% LTV) for high-reputation users.
+DeFi lending often suffers from a "one size fits all" approach to risk. FairLend intercepts every borrow request at the backend, acting as a smart proxy that:
+1.  **Verifies Reputation**: Queries **FairScale** for a user's `FairScore`.
+2.  **Enforces Tiers**: Categorizes users into Bronze, Silver, or Gold tiers.
+3.  **Adjusts Limits**: Sets Maximum LTV (Loan-To-Value) ratios dynamically.
+4.  **Constructs Transactions**: Only builds valid **Solend** borrow instructions if the risk check passes.
 
-### 2. Solend (The DeFi Layer)
-FairLend builds on top of the **Solend** protocol for actual lending and borrowing markets.
-- **Transaction Building**: The backend acts as a secure transaction builder. It uses the **Solend SDK** to construct valid Solana instructions (deposits, borrows) only *after* the risk engine has verified the user's tier...
-- **Simulation**: In environments where mainnet-forks or specific pools aren't available, the system can fallback to simulated transaction building for demonstration purposes.
+## ✨ Key Features
+
+-   **Risk Engine**: A dedicated backend service that acts as a gatekeeper for lending operations.
+-   **Dynamic LTV**:
+    -   **🥉 Bronze**: Basic access (Max 50% LTV).
+    -   **🥈 Silver**: Standard access (Max 60% LTV).
+    -   **🥇 Gold**: Premium access (Max 75% LTV) for high-reputation users.
+-   **Solend Integration**: Built on top of the battle-tested **Solend** protocol.
+-   **Glassmorphism UI**: A premium, responsive interface built with **Next.js 16**, **TailwindCSS v4**, and **Framer Motion**.
+-   **Simulation Mode**: Smart fallback to simulated transactions for development and demonstration purposes when mainnet forks are unavailable.
 
 ## 🏗️ Project Structure
 
 | Component | Directory | Description |
 | :--- | :--- | :--- |
-| **Frontend** | `/frontend` | **Next.js 16** (App Router) web app. Built with **React 19**, **TailwindCSS v4**, and Framer Motion for a premium "Glassmorphism" UI. |
-| **Backend** | `/backend` | **Node.js/Express** server. Serves as the secure oracle and Risk Engine. It holds the `FAIRSCALE_API_KEY` and constructs DeFi transactions. |
-| **Programs** | `/anchor` | **Anchor** smart contracts (Rust) for on-chain verification logic and attestation checks. |
+| **Frontend** | `/frontend` | **Next.js 16** (App Router) web app. Features a modern, dark-mode "Glassmorphism" design. |
+| **Backend** | `/backend` | **Node.js/Express** server. Serves as the secure oracle and Risk Engine. It holds the `FAIRSCALE_API_KEY` and constructs DeFi instructions. |
+| **Programs** | `/anchor` | **Anchor** smart contracts (Rust) for on-chain verification logic. |
 
 ## 🛠 Tech Stack
 
-- **Frontend**:
-  - **Framework**: Next.js 16.1.4
-  - **UI Library**: React 19.2.3
-  - **Styling**: TailwindCSS v4, Framer Motion
-  - **Web3**: `@solana/wallet-adapter`
+-   **Frontend**:
+    -   **Framework**: Next.js 16.1.4 (App Router)
+    -   **UI Library**: React 19.2.3
+    -   **Styling**: TailwindCSS v4, Framer Motion
+    -   **Wallet**: `@solana/wallet-adapter`
+    -   **Network**: Axios
 
-- **Backend**:
-  - **Runtime**: Node.js
-  - **Server**: Express.js
-  - **Integrations**: Solend SDK, FairScale API, `@solana/web3.js`
+-   **Backend**:
+    -   **Runtime**: Node.js
+    -   **Framework**: Express.js
+    -   **Integrations**: Solend SDK, FairScale API, `@solana/web3.js`
 
 ## 🚀 Setup & Run
 
 ### Prerequisites
-- Node.js (v18+)
-- Solana Wallet (Phantom/Backpack) connected to **Devnet**.
+-   Node.js (v18+)
+-   Solana Wallet (Phantom/Backpack) connected to **Devnet**.
 
 ### 1. Backend Setup
 The backend bridges the frontend with FairScale and Solend.
@@ -57,11 +62,12 @@ The backend bridges the frontend with FairScale and Solend.
     npm install
     ```
 3.  Configure Environment:
-    ```bash
-    cp .env.example .env
+    Create a `.env` file in the `backend` directory:
+    ```env
+    PORT=3001
+    FAIRSCALE_API_KEY=your_fairscale_api_key
+    # Optional: Solend Configuration
     ```
-    *Ensure your `.env` has a valid `FAIRSCALE_API_KEY`.*
-
 4.  Start the server:
     ```bash
     node index.js
@@ -88,3 +94,7 @@ The user interface for interacting with the protocol.
 ## 📜 Architecture
 
 For a deep dive into the system design, see [architecture.md](./architecture.md).
+
+---
+
+*Built for the Solana Renaissance Hackathon.*
